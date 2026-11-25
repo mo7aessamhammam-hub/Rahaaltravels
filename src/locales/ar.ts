@@ -39,7 +39,7 @@ export const ar = {
   topbar: {
     call: 'اتصال',
     whatsapp: 'واتساب',
-    hours: '[السبت – الخميس، 10 ص – 8 م]',
+    hours: 'يوميًا ما عدا الجمعة، من 9 ص إلى 9 م',
     hoursLabel: 'ساعات العمل'
   },
   nav: {
@@ -92,7 +92,7 @@ export const ar = {
     mission: 'تقديم خدمات سياحية وسفر احترافية بأسعار عادلة وشفافة، وتبسيط إجراءات السفر والتأشيرات لعملائنا، والتعامل مع كل عميل كأنه ضيف خاص.',
     valuesTitle: 'قيمنا',
     cta: 'تعرّف على خدماتنا',
-    experienceBadge: '[+00] سنة',
+    experienceBadge: '+5 سنوات',
     experienceLabel: 'من الخبرة في السياحة والسفر'
   },
   services: {
@@ -262,11 +262,11 @@ export const ar = {
   map: {
     title: 'زورنا في مكتبنا',
     addressLabel: 'العنوان',
-    address: '[العنوان التفصيلي للمكتب – المنطقة – المحافظة]',
+    address: 'القاسمية – أسيوط',
     landmarkLabel: 'علامة مميزة',
     landmark: '[بجوار / أمام ...] لتسهيل الوصول.',
     hoursLabel: 'ساعات العمل',
-    hours: '[السبت – الخميس: 10 ص – 8 م، الجمعة: إجازة أو بالمواعيد المحددة]',
+    hours: 'يوميًا ما عدا الجمعة، من 9 ص إلى 9 م',
     openInMaps: 'افتح الموقع على خرائط جوجل',
     phoneLabel: 'الهاتف',
     whatsappLabel: 'واتساب',
@@ -336,10 +336,10 @@ export const ar = {
     whatsapp: 'واتساب',
     email: 'البريد الإلكتروني',
     address: 'العنوان',
-    addressValue: '[العنوان الكامل]',
+    addressValue: 'القاسمية – أسيوط',
     mapLink: 'الموقع على خرائط جوجل',
     hours: 'ساعات العمل',
-    hoursValue: '[السبت – الخميس: 10 ص – 8 م]',
+    hoursValue: 'يوميًا ما عدا الجمعة، من 9 ص إلى 9 م',
     facebook: 'فيسبوك',
     facebookValue: 'صفحة رحال على فيسبوك',
     instagram: 'إنستجرام',

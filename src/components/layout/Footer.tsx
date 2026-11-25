@@ -112,9 +112,6 @@ export function Footer() {
         <div className="mt-14 flex flex-col gap-6 border-t border-white/10 pt-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-2 text-sm text-white/65">
             <p>{t.footer.rights}</p>
-            <p>
-              <PlaceholderText text={t.footer.license} />
-            </p>
           </div>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
             {/* TODO: link to the real policy pages once written */}

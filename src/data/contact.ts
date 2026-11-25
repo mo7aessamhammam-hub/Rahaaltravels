@@ -13,13 +13,12 @@ export const contact = {
     en: 'Hello Rahhal, I would like to inquire about a trip.'
   } as Localized,
 
-  // TODO: replace with the real company email, e.g. 'info@rahhal.com'. While empty, a placeholder is shown.
-  email: '',
+  email: 'rahaltravel10@gmail.com',
   emailPlaceholder: '[info@yourdomain.com]',
 
   mapsUrl: 'https://maps.app.goo.gl/nfeimK62TH61znDU6',
-  // TODO: replace with the office's exact address or "lat,lng" so the embedded map pins the office precisely.
-  mapEmbedQuery: 'Cairo, Egypt',
+  // Replace with "lat,lng" of the office to pin it precisely on the embedded map.
+  mapEmbedQuery: 'Al Qasimiya, Assiut, Egypt',
 
   // TODO: add the Google Business review link.
   googleReviewUrl: '#',

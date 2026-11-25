@@ -18,7 +18,7 @@ export const stats: Stat[] = [
 {
   id: 'years',
   icon: Award,
-  value: null,
+  value: 5,
   prefix: '+',
   unit: { ar: 'سنة', en: 'years' },
   placeholder: '[+00]',

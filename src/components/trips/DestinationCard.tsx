@@ -7,7 +7,6 @@ import { fadeUp } from '../../utils/motion';
 import { inquiryWhatsappLink } from '../../utils/whatsapp';
 import { WhatsAppIcon } from '../icons/BrandIcons';
 import { Button } from '../ui/Button';
-import { PlaceholderText } from '../ui/PlaceholderText';
 import { SmartImage } from '../ui/SmartImage';
 
 type DestinationCardProps = {
@@ -61,13 +60,6 @@ export function DestinationCard({ destination: d, onOpen, onBook }: DestinationC
             <dd className="line-clamp-2 text-ink/80">{pick(d.season)}</dd>
           </div>
         </dl>
-
-        <div className="mt-5 rounded-2xl bg-cloud px-4 py-3 text-sm">
-          <span className="font-bold text-primary-dark">{t.trips.common.priceLabel}: </span>
-          <span className="text-ink/75">
-            <PlaceholderText text={t.trips.common.price} />
-          </span>
-        </div>
 
         <div className="mt-auto pt-6">
           <div className="flex items-center gap-2">

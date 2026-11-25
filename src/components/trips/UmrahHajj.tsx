@@ -1,4 +1,4 @@
-import { FileTextIcon, LandmarkIcon } from 'lucide-react';
+import { LandmarkIcon } from 'lucide-react';
 import { useBooking } from '../../contexts/BookingContext';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { images } from '../../data/images';
@@ -6,7 +6,6 @@ import { umrahPackages } from '../../data/umrahPackages';
 import { Button } from '../ui/Button';
 import { Carousel } from '../ui/Carousel';
 import { CheckList } from '../ui/CheckList';
-import { PlaceholderText } from '../ui/PlaceholderText';
 import { Reveal } from '../ui/Reveal';
 import { SmartImage } from '../ui/SmartImage';
 
@@ -22,9 +21,6 @@ export function UmrahHajj() {
       <div>
         <div className="flex flex-wrap items-end justify-between gap-3">
           <h3 className="text-2xl font-extrabold text-ink">{u.packagesTitle}</h3>
-          <p className="text-sm font-semibold text-ink/60">
-            <PlaceholderText text={u.pricesNote} />
-          </p>
         </div>
         <Reveal className="mt-6">
           <Carousel
@@ -93,12 +89,6 @@ export function UmrahHajj() {
               <LandmarkIcon className="h-9 w-9 text-gold-light" aria-hidden="true" />
               <h3 className="mt-4 text-2xl font-extrabold">{u.hajjTitle}</h3>
               <p className="mt-3 text-white/80">{u.hajjText}</p>
-              <p className="mt-6 inline-flex items-start gap-2 rounded-xl bg-white/10 px-4 py-3 text-sm text-white/90">
-                <FileTextIcon className="mt-0.5 h-4 w-4 shrink-0 text-gold-light" aria-hidden="true" />
-                <span>
-                  <PlaceholderText text={u.license} />
-                </span>
-              </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button variant="gold" size="lg" onClick={() => openInquiry({ service: 'umrah' })}>
                   {u.book}

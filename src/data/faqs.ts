@@ -12,14 +12,6 @@ export const faqs: Faq[] = [
   }
 },
 {
-  id: 'deposit',
-  q: { ar: 'ما العربون المطلوب لتأكيد الحجز؟', en: 'What deposit is required to confirm a booking?' },
-  a: {
-    ar: '[حدد النسبة أو المبلغ] ويُسدَّد الباقي قبل موعد السفر بـ [عدد الأيام].',
-    en: '[Specify the percentage or amount], with the balance paid [number of days] before departure.'
-  }
-},
-{
   id: 'cancel',
   q: { ar: 'هل يمكن إلغاء الحجز أو تعديله؟', en: 'Can I cancel or change my booking?' },
   a: {

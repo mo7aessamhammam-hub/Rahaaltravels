@@ -1,5 +1,5 @@
 import React from 'react';
-import { ClockIcon, ExternalLinkIcon, LandmarkIcon, MapPinIcon, NavigationIcon, PhoneIcon } from 'lucide-react';
+import { ClockIcon, ExternalLinkIcon, MapPinIcon, NavigationIcon, PhoneIcon } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { contact } from '../../data/contact';
 import { mapEmbedUrl } from '../../utils/maps';
@@ -35,9 +35,6 @@ export function MapSection() {
             <dl className="space-y-6">
               <Row icon={<MapPinIcon className="h-5 w-5" />} label={m.addressLabel}>
                 <PlaceholderText text={m.address} />
-              </Row>
-              <Row icon={<LandmarkIcon className="h-5 w-5" />} label={m.landmarkLabel}>
-                <PlaceholderText text={m.landmark} />
               </Row>
               <Row icon={<ClockIcon className="h-5 w-5" />} label={m.hoursLabel}>
                 <PlaceholderText text={m.hours} />

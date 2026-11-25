@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CalendarDaysIcon, CirclePlusIcon, ClockIcon, TagIcon } from 'lucide-react';
+import { CalendarDaysIcon, CirclePlusIcon, ClockIcon } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import type { Destination } from '../../data/destinations';
 import { images } from '../../data/images';
@@ -73,7 +73,6 @@ export function DestinationModal({ destination, onClose, onBook }: DestinationMo
                 <dl className="space-y-3">
                   <InfoRow icon={<ClockIcon className="h-5 w-5" aria-hidden="true" />} label={t.trips.common.durationLabel} value={pick(d.duration)} />
                   <InfoRow icon={<CalendarDaysIcon className="h-5 w-5" aria-hidden="true" />} label={t.trips.common.seasonLabel} value={pick(d.season)} />
-                  <InfoRow icon={<TagIcon className="h-5 w-5" aria-hidden="true" />} label={t.trips.common.priceLabel} value={t.trips.common.price} />
                 </dl>
               </div>
 

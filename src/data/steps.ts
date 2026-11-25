@@ -64,7 +64,7 @@ export const bookingSteps: Step[] = [
   id: 'confirm',
   icon: ClipboardCheck,
   title: { ar: 'أكد الحجز', en: 'Confirm your booking' },
-  text: { ar: 'بدفع عربون [نسبة العربون] وتسليم المستندات المطلوبة.', en: 'By paying a deposit of [deposit percentage] and submitting the required documents.' }
+  text: { ar: 'بدفع عربون وتسليم المستندات المطلوبة.', en: 'By paying a deposit and submitting the required documents.' }
 },
 {
   id: 'travel',

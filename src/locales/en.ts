@@ -41,7 +41,7 @@ export const en: Dictionary = {
   topbar: {
     call: 'Call',
     whatsapp: 'WhatsApp',
-    hours: '[Sat – Thu, 10 AM – 8 PM]',
+    hours: 'Daily except Friday, 9 AM – 9 PM',
     hoursLabel: 'Opening hours'
   },
   nav: {
@@ -94,7 +94,7 @@ export const en: Dictionary = {
     mission: 'To deliver professional travel and tourism services at fair, transparent prices, simplify travel and visa procedures for our clients, and treat every client as a special guest.',
     valuesTitle: 'Our Values',
     cta: 'Explore our services',
-    experienceBadge: '[+00] years',
+    experienceBadge: '5+ years',
     experienceLabel: 'of experience in travel & tourism'
   },
   services: {
@@ -264,11 +264,11 @@ export const en: Dictionary = {
   map: {
     title: 'Visit our office',
     addressLabel: 'Address',
-    address: '[Full office address – District – Governorate]',
+    address: 'Al Qasimiya – Assiut',
     landmarkLabel: 'Landmark',
     landmark: '[Next to / Opposite ...] to help you find us.',
     hoursLabel: 'Opening hours',
-    hours: '[Sat – Thu: 10 AM – 8 PM, Friday: closed or by appointment]',
+    hours: 'Daily except Friday, 9 AM – 9 PM',
     openInMaps: 'Open location in Google Maps',
     phoneLabel: 'Phone',
     whatsappLabel: 'WhatsApp',
@@ -338,10 +338,10 @@ export const en: Dictionary = {
     whatsapp: 'WhatsApp',
     email: 'Email',
     address: 'Address',
-    addressValue: '[Full address]',
+    addressValue: 'Al Qasimiya – Assiut',
     mapLink: 'Location on Google Maps',
     hours: 'Opening hours',
-    hoursValue: '[Sat – Thu: 10 AM – 8 PM]',
+    hoursValue: 'Daily except Friday, 9 AM – 9 PM',
     facebook: 'Facebook',
     facebookValue: 'Rahhal on Facebook',
     instagram: 'Instagram',

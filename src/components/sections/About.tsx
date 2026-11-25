@@ -1,5 +1,5 @@
 import { m } from 'framer-motion';
-import { ArrowRightIcon, CompassIcon, EyeIcon, FileTextIcon, GemIcon } from 'lucide-react';
+import { ArrowRightIcon, CompassIcon, EyeIcon, GemIcon } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { images } from '../../data/images';
 import { companyValues } from '../../data/values';
@@ -62,12 +62,6 @@ export function About() {
             <Reveal delay={0.05} className="mt-8 space-y-5 text-[17px] text-ink/75">
               <p>{t.about.p1}</p>
               <p>{t.about.p2}</p>
-            </Reveal>
-            <Reveal delay={0.1} className="mt-6">
-              <p className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-ink/80 shadow-soft ring-1 ring-ink/5">
-                <FileTextIcon className="h-4 w-4 text-primary" aria-hidden="true" />
-                <PlaceholderText text={t.about.license} />
-              </p>
             </Reveal>
           </div>
         </div>

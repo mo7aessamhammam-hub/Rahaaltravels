@@ -14,6 +14,10 @@ export function Testimonials() {
   const marqueeRef = useRef<HTMLDivElement>(null);
   usePauseOffscreen(marqueeRef);
 
+  const items = testimonials.filter((item) => item.review?.text.trim());
+  // The scrolling marquee needs enough cards to fill the screen; with only a few, show them in a static row.
+  const useMarquee = items.length >= 4;
+
   const shareMessage = lang === 'ar' ? 'مرحبًا رحال، أريد مشاركة رأيي في رحلتي معكم' : 'Hello Rahhal, I would like to share feedback about my trip with you.';
 
   return (
@@ -23,7 +27,18 @@ export function Testimonials() {
         <SectionTitle id="testimonials-title" title={t.testimonials.title} align="start" />
       </div>
 
+      {!useMarquee &&
+      <ul className="relative mx-auto mt-12 flex max-w-7xl flex-wrap justify-center gap-6 px-4 py-4 sm:px-6 lg:px-8">
+          {items.map((item) =>
+        <li key={item.id} className="w-[300px] sm:w-[360px]">
+              <TestimonialCard item={item} />
+            </li>
+        )}
+        </ul>
+      }
+
       {/* Single-row marquee: auto-scrolls, pauses on hover/focus, becomes a manual scroller with reduced motion. */}
+      {useMarquee &&
       <div
         ref={marqueeRef}
         role="region"
@@ -32,7 +47,7 @@ export function Testimonials() {
         
         <div
           className="marquee-track flex w-max py-4"
-          style={{ '--marquee-duration': `${testimonials.length * 7}s` } as React.CSSProperties}>
+          style={{ '--marquee-duration': `${items.length * 7}s` } as React.CSSProperties}>
           
           {[0, 1].map((copy) =>
           <ul
@@ -40,7 +55,7 @@ export function Testimonials() {
             aria-hidden={copy === 1 ? true : undefined}
             className={`flex shrink-0 gap-6 pe-6 ${copy === 1 ? 'motion-reduce:hidden' : ''}`}>
             
-              {testimonials.map((item) =>
+              {items.map((item) =>
             <li key={item.id} className="w-[300px] shrink-0 sm:w-[360px]">
                   <TestimonialCard item={item} />
                 </li>
@@ -49,6 +64,7 @@ export function Testimonials() {
           )}
         </div>
       </div>
+      }
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mt-12 flex flex-col items-center justify-between gap-5 rounded-3xl bg-white p-6 shadow-soft ring-1 ring-ink/5 md:flex-row md:p-8">
