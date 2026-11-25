@@ -18,7 +18,7 @@ export const contact = {
 
   mapsUrl: 'https://maps.app.goo.gl/nfeimK62TH61znDU6',
   // Replace with "lat,lng" of the office to pin it precisely on the embedded map.
-  mapEmbedQuery: 'Al Qasimiya, Assiut, Egypt',
+  mapEmbedQuery: '27.441519,30.819515',
 
   // TODO: add the Google Business review link.
   googleReviewUrl: '#',
