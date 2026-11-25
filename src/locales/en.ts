@@ -264,7 +264,7 @@ export const en: Dictionary = {
   map: {
     title: 'Visit our office',
     addressLabel: 'Address',
-    address: 'Al Qasimiya – Assiut',
+    address: 'El Qusiya – Assiut',
     landmarkLabel: 'Landmark',
     landmark: '[Next to / Opposite ...] to help you find us.',
     hoursLabel: 'Opening hours',
@@ -338,7 +338,7 @@ export const en: Dictionary = {
     whatsapp: 'WhatsApp',
     email: 'Email',
     address: 'Address',
-    addressValue: 'Al Qasimiya – Assiut',
+    addressValue: 'El Qusiya – Assiut',
     mapLink: 'Location on Google Maps',
     hours: 'Opening hours',
     hoursValue: 'Daily except Friday, 9 AM – 9 PM',

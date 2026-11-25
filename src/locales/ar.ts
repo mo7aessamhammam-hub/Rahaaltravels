@@ -262,7 +262,7 @@ export const ar = {
   map: {
     title: 'زورنا في مكتبنا',
     addressLabel: 'العنوان',
-    address: 'القاسمية – أسيوط',
+    address: 'القوصية – أسيوط',
     landmarkLabel: 'علامة مميزة',
     landmark: '[بجوار / أمام ...] لتسهيل الوصول.',
     hoursLabel: 'ساعات العمل',
@@ -336,7 +336,7 @@ export const ar = {
     whatsapp: 'واتساب',
     email: 'البريد الإلكتروني',
     address: 'العنوان',
-    addressValue: 'القاسمية – أسيوط',
+    addressValue: 'القوصية – أسيوط',
     mapLink: 'الموقع على خرائط جوجل',
     hours: 'ساعات العمل',
     hoursValue: 'يوميًا ما عدا الجمعة، من 9 ص إلى 9 م',
