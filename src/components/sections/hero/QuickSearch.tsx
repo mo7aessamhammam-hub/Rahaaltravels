@@ -1,13 +1,17 @@
 import React, { useId, useMemo, useState } from 'react';
 import { m } from 'framer-motion';
-import { CalendarIcon, ChevronDownIcon, MapPinIcon, SearchIcon, ShapesIcon } from 'lucide-react';
+import { CalendarIcon, MapPinIcon, SearchIcon, ShapesIcon } from 'lucide-react';
 import { useBooking } from '../../../contexts/BookingContext';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { destinations } from '../../../data/destinations';
-import { europeDestinations, gulfCountries } from '../../../data/international';
+import { europeDestinations, europeOnRequest, gulfCountries, gulfPrograms } from '../../../data/international';
+import type { Localized } from '../../../types/i18n';
+import { scrollToSection } from '../../../utils/scroll';
 import type { InquiryServiceId } from '../../../types/booking';
 import { EASE_OUT } from '../../../utils/motion';
 import { Button } from '../../ui/Button';
+import { Combobox } from '../../ui/Combobox';
+import { Select } from '../../ui/Select';
 
 type SearchService = 'domestic' | 'international' | 'umrah' | 'visa';
 const serviceOrder: SearchService[] = ['domestic', 'international', 'umrah', 'visa'];
@@ -18,9 +22,31 @@ const toInquiryService: Record<SearchService, InquiryServiceId | ''> = {
   visa: ''
 };
 
+/** Loose text match: ignores case, extra spaces, the Arabic article and hamza/taa-marbuta variants. */
+const normalize = (s: string) =>
+s.
+toLowerCase().
+replace(/[أإآ]/g, 'ا').
+replace(/ة/g, 'ه').
+replace(/ى/g, 'ي').
+replace(/(^|\s)ال/g, '$1').
+replace(/\s+/g, ' ').
+trim();
+
+const matches = (query: string, name: Localized) => {
+  const q = normalize(query);
+  if (!q) return false;
+  return [name.ar, name.en].some((n) => {
+    const v = normalize(n);
+    return v.includes(q) || q.includes(v);
+  });
+};
+
+const holyCities: Localized[] = [{ ar: 'مكة المكرمة', en: 'Makkah' }, { ar: 'المدينة المنورة', en: 'Madinah' }, { ar: 'عمرة', en: 'Umrah' }, { ar: 'حج', en: 'Hajj' }];
+
 export function QuickSearch() {
   const { t, pick } = useLanguage();
-  const { openInquiry } = useBooking();
+  const { openInquiry, goToTrips, openDestination } = useBooking();
   const uid = useId();
   const [service, setService] = useState<SearchService | ''>('');
   const [destination, setDestination] = useState('');
@@ -38,6 +64,28 @@ export function QuickSearch() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const q = destination.trim();
+
+    // 1) A known destination wins over the service picked, so "Kuwait" always lands on the Gulf section.
+    if (q) {
+      const domestic = destinations.find((d) => matches(q, d.name));
+      if (domestic) return openDestination(domestic.id);
+      if (holyCities.some((c) => matches(q, c))) return goToTrips('umrah');
+      const isGulf = gulfCountries.some((c) => matches(q, c.name)) || gulfPrograms.some((p) => matches(q, p.title));
+      const isEurope = [...europeDestinations, ...europeOnRequest].some((c) => matches(q, c.name));
+      if (isGulf || isEurope) {
+        if (service === 'visa') return scrollToSection('visas');
+        return goToTrips('international', isGulf ? 'gulf' : 'europe');
+      }
+    }
+
+    // 2) No destination typed: go to the section for the chosen service.
+    if (!q && service) {
+      if (service === 'visa') return scrollToSection('visas');
+      return goToTrips(service);
+    }
+
+    // 3) Unknown destination (or nothing chosen): send it to the inquiry form so the team can reply.
     const visaPrefix = service === 'visa' ? `${t.search.options.visa}: ` : '';
     openInquiry({
       service: service ? toInquiryService[service] : '',
@@ -63,25 +111,17 @@ export function QuickSearch() {
       <div className={fieldWrap}>
         <ShapesIcon className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
         <div className="min-w-0 flex-1">
-          <label htmlFor={`${uid}-service`} className={labelCls}>
+          <span id={`${uid}-service-label`} className={labelCls}>
             {t.search.service}
-          </label>
-          <div className="relative">
-            <select
-              id={`${uid}-service`}
-              value={service}
-              onChange={(e) => setService(e.target.value as SearchService | '')}
-              className={`${inputCls} appearance-none pe-6`}>
-              
-              <option value="">{t.search.servicePlaceholder}</option>
-              {serviceOrder.map((s) =>
-              <option key={s} value={s}>
-                  {t.search.options[s]}
-                </option>
-              )}
-            </select>
-            <ChevronDownIcon className="pointer-events-none absolute end-0 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/40" aria-hidden="true" />
-          </div>
+          </span>
+          <Select
+            id={`${uid}-service`}
+            labelledBy={`${uid}-service-label`}
+            value={service}
+            onChange={setService}
+            placeholder={t.search.servicePlaceholder}
+            options={serviceOrder.map((s) => ({ value: s, label: t.search.options[s] }))}
+            placement="top" />
         </div>
       </div>
 
@@ -91,20 +131,13 @@ export function QuickSearch() {
           <label htmlFor={`${uid}-dest`} className={labelCls}>
             {t.search.destination}
           </label>
-          <input
+          <Combobox
             id={`${uid}-dest`}
-            list={`${uid}-dest-list`}
             value={destination}
-            onChange={(e) => setDestination(e.target.value)}
+            onChange={setDestination}
+            suggestions={suggestions}
             placeholder={t.search.destinationPlaceholder}
-            className={inputCls}
-            autoComplete="off" />
-          
-          <datalist id={`${uid}-dest-list`}>
-            {suggestions.map((s) =>
-            <option key={s} value={s} />
-            )}
-          </datalist>
+            placement="top" />
         </div>
       </div>
 

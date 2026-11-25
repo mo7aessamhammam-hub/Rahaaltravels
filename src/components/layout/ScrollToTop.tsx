@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { AnimatePresence, m, useReducedMotion } from 'framer-motion';
 import { ArrowUpIcon } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { getLenis } from '../../utils/smoothScroll';
 import { EASE_OUT } from '../../utils/motion';
 
 // Ring geometry
@@ -52,7 +53,11 @@ export function ScrollToTop() {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.6, y: 20 }}
         transition={{ duration: 0.25, ease: EASE_OUT }}
-        onClick={() => window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' })}
+        onClick={() => {
+          const lenis = getLenis();
+          if (lenis) lenis.scrollTo(0, { duration: 1.4 });else
+          window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+        }}
         aria-label={`${t.a11y.backToTop} — ${Math.round(progress)}%`}
         className="group fixed bottom-5 start-5 z-40 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2">
 

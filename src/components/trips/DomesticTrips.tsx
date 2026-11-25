@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { m } from 'framer-motion';
 import { CircleXIcon, MapPinIcon } from 'lucide-react';
 import { useBooking } from '../../contexts/BookingContext';
@@ -12,8 +12,17 @@ import { DestinationModal } from './DestinationModal';
 
 export function DomesticTrips() {
   const { t, pick } = useLanguage();
-  const { openInquiry } = useBooking();
+  const { openInquiry, searchedDestination } = useBooking();
   const [selected, setSelected] = useState<Destination | null>(null);
+
+  // Open the destination picked in the hero quick search, after the scroll to this section settles.
+  useEffect(() => {
+    if (!searchedDestination) return;
+    const d = destinations.find((x) => x.id === searchedDestination.id);
+    if (!d) return;
+    const timer = window.setTimeout(() => setSelected(d), 700);
+    return () => window.clearTimeout(timer);
+  }, [searchedDestination]);
 
   const book = (d: Destination) => {
     setSelected(null);

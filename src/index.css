@@ -88,6 +88,39 @@ section[id] { scroll-margin-top: 84px; }
 .hero-float-cloud-a { animation: hero-cloud-a 18s ease-in-out infinite; will-change: transform; }
 .hero-float-cloud-b { animation: hero-cloud-b 22s ease-in-out infinite; will-change: transform; }
 .hero-float-moon { animation: hero-moon 10s ease-in-out infinite; will-change: transform; }
+/* Lenis smooth scrolling */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+
+/* Custom cursor (desktop mouse only; see CustomCursor.tsx) */
+html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
+html.has-custom-cursor :is(input, textarea, [contenteditable='true']) { cursor: text !important; }
+.cursor-dot, .cursor-ring {
+  position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; opacity: 0;
+  border-radius: 999px; will-change: transform;
+}
+.cursor-dot {
+  width: 8px; height: 8px; background: #D9A62E;
+  transition: opacity .2s, width .2s, height .2s, background-color .2s;
+}
+.cursor-ring {
+  width: 36px; height: 36px; border: 1.5px solid rgba(217,166,46,.7);
+  transition: opacity .25s, width .3s var(--ease-brand), height .3s var(--ease-brand), background-color .3s, border-color .3s;
+}
+.cursor-ring[data-state='link'] { width: 56px; height: 56px; background: rgba(217,166,46,.14); border-color: rgba(217,166,46,.9); }
+.cursor-dot[data-state='link'] { width: 6px; height: 6px; }
+.cursor-ring[data-state='text'], .cursor-dot[data-state='text'] { opacity: 0 !important; }
+.cursor-ring.is-pressed { width: 28px; height: 28px; background: rgba(217,166,46,.25); }
+
+/* Branded page scrollbar */
+html { scrollbar-width: thin; scrollbar-color: #D9A62E #eef3f3; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #eef3f3; }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #F2D57E, #D9A62E); border-radius: 999px; border: 2px solid #eef3f3; }
+::-webkit-scrollbar-thumb:hover { background: #A97C14; }
+
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
 @media (prefers-reduced-motion: reduce) {

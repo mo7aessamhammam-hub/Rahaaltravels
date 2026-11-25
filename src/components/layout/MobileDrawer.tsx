@@ -72,7 +72,7 @@ export function MobileDrawer({ open, onClose, active }: MobileDrawerProps) {
               </button>
             </div>
 
-            <nav aria-label={t.a11y.mainNav} className="flex-1 overflow-y-auto px-3 py-4">
+            <nav aria-label={t.a11y.mainNav} data-lenis-prevent className="flex-1 overflow-y-auto px-3 py-4">
               <m.ul variants={stagger(0.03, 0.08)} initial="hidden" animate="show" className="space-y-1">
                 {navItems.map((key) =>
               <m.li key={key} variants={fadeUp}>

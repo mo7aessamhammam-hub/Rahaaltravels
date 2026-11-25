@@ -1,3 +1,5 @@
+import { getLenis } from './smoothScroll';
+
 export function prefersReducedMotion(): boolean {
   return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
@@ -27,6 +29,18 @@ export function settleOnSection(el: HTMLElement, tries = 2): void {
 export function scrollToSection(id: string): void {
   const el = document.getElementById(id);
   if (!el) return;
+  const lenis = getLenis();
+  if (lenis) {
+    const margin = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
+    // Lazy sections can change height mid-flight, so re-aim once the first glide finishes.
+    lenis.scrollTo(el, {
+      offset: -margin,
+      onComplete: () => {
+        if (Math.abs(el.getBoundingClientRect().top - margin) > 4) lenis.scrollTo(el, { offset: -margin, duration: 0.6 });
+      }
+    });
+    return;
+  }
   el.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
   settleOnSection(el);
 }

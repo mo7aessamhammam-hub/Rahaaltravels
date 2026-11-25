@@ -12,6 +12,9 @@ type BookingContextValue = {
   intlTab: IntlTab;
   setIntlTab: (tab: IntlTab) => void;
   goToTrips: (tab: TripTab, intl?: IntlTab) => void;
+  /** Domestic destination the quick search asked to open, with a counter so repeat searches re-open it. */
+  searchedDestination: {id: string;version: number;} | null;
+  openDestination: (id: string) => void;
 };
 
 const BookingContext = createContext<BookingContextValue | null>(null);
@@ -21,6 +24,7 @@ export function BookingProvider({ children }: {children: React.ReactNode;}) {
   const [prefillVersion, setPrefillVersion] = useState(0);
   const [tripTab, setTripTab] = useState<TripTab>('domestic');
   const [intlTab, setIntlTab] = useState<IntlTab>('gulf');
+  const [searchedDestination, setSearchedDestination] = useState<{id: string;version: number;} | null>(null);
 
   const openInquiry = useCallback((next?: InquiryPrefill) => {
     if (next) {
@@ -36,9 +40,15 @@ export function BookingProvider({ children }: {children: React.ReactNode;}) {
     scrollToSection('trips');
   }, []);
 
+  const openDestination = useCallback((id: string) => {
+    setTripTab('domestic');
+    setSearchedDestination((prev) => ({ id, version: (prev?.version ?? 0) + 1 }));
+    scrollToSection('trips');
+  }, []);
+
   const value = useMemo(
-    () => ({ prefill, prefillVersion, openInquiry, tripTab, setTripTab, intlTab, setIntlTab, goToTrips }),
-    [prefill, prefillVersion, openInquiry, tripTab, intlTab, goToTrips]
+    () => ({ prefill, prefillVersion, openInquiry, tripTab, setTripTab, intlTab, setIntlTab, goToTrips, searchedDestination, openDestination }),
+    [prefill, prefillVersion, openInquiry, tripTab, intlTab, goToTrips, searchedDestination, openDestination]
   );
 
   return <BookingContext.Provider value={value}>{children}</BookingContext.Provider>;

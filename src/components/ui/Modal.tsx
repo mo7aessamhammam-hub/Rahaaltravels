@@ -60,6 +60,7 @@ export function Modal({ open, onClose, labelledBy, children, size = 'xl' }: Moda
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 16, scale: 0.98 }}
           transition={{ duration: 0.25, ease: EASE_OUT }}
+          data-lenis-prevent
           className={`relative max-h-[92svh] w-full ${widths[size]} overflow-y-auto rounded-t-3xl bg-white shadow-lift focus:outline-none sm:rounded-3xl`}>
           
             <button
