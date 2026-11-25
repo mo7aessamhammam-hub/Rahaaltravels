@@ -17,8 +17,63 @@
     <!-- Self-hosted fonts: preload the Arabic default so text is shaped once, with no swap shift -->
     <link rel="preload" as="font" type="font/woff2" href="/fonts/cairo-arabic.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/cairo-latin.woff2" crossorigin />
+
+    <!-- Preloader: pure CSS + a few lines of JS so it paints instantly, before the app bundle loads -->
+    <style>
+      #preloader{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;background:#08454B;
+        transition:clip-path .9s cubic-bezier(.76,0,.24,1),visibility 0s .9s;clip-path:inset(0 0 0 0)}
+      #preloader.is-done{clip-path:inset(0 0 100% 0);visibility:hidden}
+      #preloader .pl-inner{display:flex;flex-direction:column;align-items:center;gap:22px;transition:opacity .35s,transform .5s cubic-bezier(.23,1,.32,1)}
+      #preloader.is-done .pl-inner{opacity:0;transform:translateY(-24px)}
+      #preloader .pl-badge{width:88px;height:88px;border-radius:26px;background:#fff;display:grid;place-items:center;
+        box-shadow:0 18px 50px -12px rgba(0,0,0,.45);animation:pl-pop .7s cubic-bezier(.23,1,.32,1) both}
+      #preloader .pl-badge img{width:62px;height:62px;object-fit:contain}
+      #preloader .pl-ring{position:absolute;width:88px;height:88px;border-radius:26px;border:2px solid rgba(242,213,126,.55);
+        animation:pl-ping 1.6s cubic-bezier(0,0,.2,1) infinite}
+      #preloader .pl-logo{position:relative;display:grid;place-items:center}
+      #preloader .pl-bar{width:140px;height:3px;border-radius:99px;background:rgba(255,255,255,.14);overflow:hidden}
+      #preloader .pl-bar span{display:block;height:100%;width:40%;border-radius:inherit;
+        background:linear-gradient(90deg,#F2D57E,#D9A62E);animation:pl-slide 1.1s cubic-bezier(.65,0,.35,1) infinite}
+      #preloader.is-done .pl-bar span{animation:none;width:100%;transition:width .3s}
+      @keyframes pl-pop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}
+      @keyframes pl-ping{0%{transform:scale(1);opacity:.9}100%{transform:scale(1.55);opacity:0}}
+      @keyframes pl-slide{0%{transform:translateX(-110%)}100%{transform:translateX(260%)}}
+      [dir=rtl] #preloader .pl-bar span{animation-name:pl-slide-rtl}
+      @keyframes pl-slide-rtl{0%{transform:translateX(110%)}100%{transform:translateX(-260%)}}
+      @media (prefers-reduced-motion:reduce){
+        #preloader{transition:opacity .3s,visibility 0s .3s;clip-path:none}
+        #preloader.is-done{opacity:0}
+        #preloader *{animation:none!important}
+      }
+    </style>
+    <noscript><style>#preloader{display:none}</style></noscript>
   </head>
   <body>
+    <div id="preloader" role="status" aria-label="جارٍ التحميل…">
+      <div class="pl-inner">
+        <div class="pl-logo">
+          <span class="pl-ring" aria-hidden="true"></span>
+          <div class="pl-badge"><img src="/logo.webp" alt="" width="62" height="62" fetchpriority="high" /></div>
+        </div>
+        <div class="pl-bar" aria-hidden="true"><span></span></div>
+      </div>
+    </div>
+    <script>
+      // Hide once the page has loaded, but never flash (min 700ms) and never block (max 3.5s).
+      (function () {
+        var el = document.getElementById('preloader');
+        var start = Date.now(), done = false;
+        function hide() {
+          if (done) return; done = true;
+          setTimeout(function () {
+            el.classList.add('is-done');
+            setTimeout(function () { el.remove(); }, 1000);
+          }, Math.max(0, 700 - (Date.now() - start)));
+        }
+        if (document.readyState === 'complete') hide(); else window.addEventListener('load', hide);
+        setTimeout(hide, 3500);
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/index.tsx"></script>
   </body>
